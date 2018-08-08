@@ -63,8 +63,10 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
         it('toggles visibility when clicked', function() {
+            //simulate clicking the menu icon to open it
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(false);
+            //simulate clicking the menu icon to hide it
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
@@ -89,16 +91,17 @@ $(function() {
         let nextFeed;
 
         beforeEach(function(done) {
+            //load initial feed and log it's content to variable previousFeed
             loadFeed(0, function() {
                 previousFeed = $('.feed').html();
-                
+                //load a new feed and log it's content to variable nextFeed
                 loadFeed(1, function() {
                     nextFeed = $('.feed').html();
                     done();
                 });
             });
         });
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* This test ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
