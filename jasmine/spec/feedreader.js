@@ -47,7 +47,7 @@ $(function() {
         });
     });
 
-    describe('The menu', function(){
+    describe('The Menu', function(){
 
         /* This test ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -70,19 +70,41 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
+    describe('Initial Entries', function(done) {
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
+        /* This test ensures that when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        it('are visible in the feed container on load', function() {
+            expect($('.feed').find('.entry').length).not.toBe(0);
+        });
+    });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function(done) {
+        
+        let previousFeed;
+        let nextFeed;
 
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                previousFeed = $('.feed').html();
+                
+                loadFeed(1, function() {
+                    nextFeed = $('.feed').html();
+                    done();
+                });
+            });
+        });
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        it('changes content when a new feed is loaded', function(done) {
+            expect(previousFeed).not.toBe(nextFeed);
+            done();
+        });
+     });
 }());
